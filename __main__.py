@@ -22,11 +22,13 @@ def main():
     client = hvac.Client(url=os.environ['VAULT_ADDR'], token=os.environ['VAULT_TOKEN'])
     kv = os.environ["vault_kv"]
 
-    print(inventory.loadInventory(client, kv))
+    d = json.dumps(inventory.loadInventory(client, kv), default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
 
 
-    
+    print(d)    
 
 
 
 main()
+
